@@ -1,0 +1,35 @@
+* {
+    font-family: 'Ubuntu', sans-serif;
+    margin: 0px;
+}
+
+body {
+    background-color: rgb(37, 37, 37);
+    color: whitesmoke;
+}
+
+.nav-space {
+    flex-basis: 30%;
+}
+
+nav {
+    background-color: rgb(26, 25, 25);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 5%;
+    padding-right: 5%;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search {
+    flex-grow: 1;
+    text-align: center;
+}
+
+nav > h1 {
+    flex-basis: 30%;
+    margin: 0;
+}
