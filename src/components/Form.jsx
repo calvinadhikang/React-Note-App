@@ -16,18 +16,18 @@ export default class Form extends React.Component {
 
     titleChange = (e) => {
         const value = e.target.value;
-        this.setState({
-            title: value 
-        });
+        if (value.length <= 50) {
+            this.setState({
+                title: value 
+            });
+        }
     }
     
     descChange = (e) => {
         const value = e.target.value;
-        if (value.length <= 50) {
-            this.setState({
-                desc: value 
-            });
-        }
+        this.setState({
+            desc: value 
+        });
     }
 
     render(){
@@ -36,9 +36,9 @@ export default class Form extends React.Component {
                 <div className="add-form">
                     <label>Title</label>
                     <input type="text" value={this.state.title} onChange={(e) => this.titleChange(e)}></input>
+                    <span className="word-counter">{this.state.title.length}/50</span>
                     <label>Description</label>
                     <textarea onChange={(e) => this.descChange(e)} value={this.state.desc}></textarea>
-                    <span className="word-counter">{this.state.desc.length}/50</span>
                     <button type="button" onClick={() => this.props.addNote(this.state.title, this.state.desc)}>Add !</button>
                 </div>
             </>
