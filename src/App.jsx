@@ -8,10 +8,22 @@ export class App extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            key: '',
             data: getInitialData()
         }
 
         this.addNote = this.addNote.bind(this);   
+        this.titleSearch = this.titleSearch.bind(this);
+        this.deleteNote = this.deleteNote.bind(this);
+    }
+
+    titleSearch = (e) => {
+        const data = e.target.value;
+        console.log(data)
+
+        this.setState((prev) => ({
+            key: data
+        }))
     }
 
     addNote = (title, description) => {
@@ -29,18 +41,31 @@ export class App extends React.Component {
         );
     }
 
+    deleteNote = (id) => {
+        const data = this.state.data.filter((e) => e.id != id)
+        console.log(id)
+        this.setState((prev) => ({
+            data: data
+        }))
+    }
+
     render(){
         return(
             <>
-                <Nav/>
+                <Nav>
+                    <input type="text" className="search" placeholder="Search" value={this.state.key} onChange={(e) => this.titleSearch(e)}/>
+                </Nav>
                 
                 <h2 id="AddNotes">Add Notes</h2>
                 <div className="center-flex">
                     <Form addNote={this.addNote}/>
                 </div>
 
-                <Content data={this.state.data.filter(item => item.archived == false)}>Active Notes</Content>
-                <Content data={this.state.data.filter(item => item.archived == true)}>Archived Notes</Content>
+                <Content data={this.state.data.filter(item => item.archived == false && item.title.toLowerCase().includes(this.state.key.toLowerCase()))}
+                onDelete={this.deleteNote}>Active Notes</Content>
+                <Content 
+                data={this.state.data.filter(item => item.archived == true && item.title.toLowerCase().includes(this.state.key.toLowerCase()))}
+                onDelete={this.deleteNote}>Archived Notes</Content>
                 <br></br>
             </>
         );

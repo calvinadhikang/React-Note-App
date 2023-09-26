@@ -12,6 +12,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .between-flex {
@@ -45,7 +46,7 @@ nav {
     border: 0;
     height: 30px;
     border-radius: 15px;
-    color: whitesmoke;
+    color: black;
 }
 
 nav > h1 {
@@ -126,6 +127,8 @@ nav > h1 {
     width: 210px;
     border-radius: 5px;
     box-shadow: rgba(1, 255, 255, 0.2) 0px 7px 29px 0px;
+    display: flex;
+    flex-direction: column;
 }
 
 .notes-title {
@@ -141,5 +144,31 @@ nav > h1 {
 .notes-body {
     margin-top: 10px;
     font-size: medium;
+    margin-bottom: 20px;
+    flex-grow: 1;
 }
 /* End of Content */
+
+/* Notes Button */
+.notes > button {
+    width: 100%;
+    padding: 20px;
+    border: 0px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-archive {
+    background-color: rgb(244, 244, 99);
+}
+
+.btn-unarchive {
+    background-color: rgb(67, 234, 67);
+    color: whitesmoke;
+}
+
+.btn-delete {
+    background-color: red;
+    color: white;
+}
+/* End of Notes Button */

@@ -1,13 +1,11 @@
 import React from "react";
 
-function Nav() {
+export default function Nav({children}) {
     return(
         <nav className="nav">
             <h1>React Note App</h1>
-            <input type="text" className="search" placeholder="Search"/>
+            {children}
             <div className="nav-space"></div>
         </nav>
     );
 }
-
-export default Nav;
