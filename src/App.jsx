@@ -15,6 +15,7 @@ export class App extends React.Component {
         this.addNote = this.addNote.bind(this);   
         this.titleSearch = this.titleSearch.bind(this);
         this.deleteNote = this.deleteNote.bind(this);
+        this.toggleArchive = this.toggleArchive.bind(this);
     }
 
     titleSearch = (e) => {
@@ -49,6 +50,19 @@ export class App extends React.Component {
         }))
     }
 
+    toggleArchive = (id) => {
+        const data = this.state.data.map((obj) => {
+            if (obj.id == id) {
+                obj.archived = !obj.archived
+            }
+
+            return obj;
+        })
+        this.setState(() => ({
+            data: data
+        }))
+    }
+
     render(){
         return(
             <>
@@ -62,10 +76,10 @@ export class App extends React.Component {
                 </div>
 
                 <Content data={this.state.data.filter(item => item.archived == false && item.title.toLowerCase().includes(this.state.key.toLowerCase()))}
-                onDelete={this.deleteNote}>Active Notes</Content>
+                onDelete={this.deleteNote} toggleArchive={this.toggleArchive}>Active Notes</Content>
                 <Content 
                 data={this.state.data.filter(item => item.archived == true && item.title.toLowerCase().includes(this.state.key.toLowerCase()))}
-                onDelete={this.deleteNote}>Archived Notes</Content>
+                onDelete={this.deleteNote} toggleArchive={this.toggleArchive}>Archived Notes</Content>
                 <br></br>
             </>
         );
