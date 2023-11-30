@@ -1,11 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export default function Nav({children}) {
+export default function Nav() {
     return(
         <nav className="nav">
             <h1>React Note App</h1>
-            {children}
-            <div className="nav-space"></div>
+            <div className="nav-space">
+                <Link to="/">Home</Link>
+                <Link to="/add">Add Notes</Link>
+            </div>
         </nav>
     );
 }

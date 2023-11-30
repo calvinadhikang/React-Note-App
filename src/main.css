@@ -37,6 +37,9 @@ nav {
 
 .nav-space {
     flex-basis: 30%;
+    justify-content: end;
+    display: flex;
+    gap: 10px;
 }
 
 .search {
@@ -47,6 +50,8 @@ nav {
     height: 30px;
     border-radius: 15px;
     color: black;
+    width: 60%;
+    margin-top: 10px;
 }
 
 nav > h1 {
@@ -116,7 +121,7 @@ nav > h1 {
 
 /* Content & Notes */
 .content{
-    padding-top: 80px;
+    padding-top: 10px;
     width: 60%;
     margin: auto;
 }

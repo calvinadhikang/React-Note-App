@@ -1,15 +1,20 @@
 import React from "react";
 import { showFormattedDate } from "../utils/data";
+import PropTypes from 'prop-types';
+import { useNavigate } from "react-router-dom";
 
-export default function NotesItem({data, onDelete, toggleArchive}){
+export default function NotesItem({data}){
+    const navigate = useNavigate();
+    
     return(
-        <div className="notes">
+        <div className="notes" onClick={() => navigate('/detail/' + data.id)}>
             <p className="notes-title">{data.title}</p>
             <p className="notes-time">{ showFormattedDate(data.createdAt)}</p>
             <p className="notes-body">{data.body}</p>
-
-            <button className={data.archived ? 'btn-unarchive' : 'btn-archive'} onClick={(e) => toggleArchive(data.id)}>{data.archived ? 'Un-Archive' : 'Archive'}</button>
-            <button className="btn-delete" onClick={() => onDelete(data.id)}>Delete</button>
         </div>
     );
+}
+
+NotesItem.propTypes = {
+    data: PropTypes.object.isRequired,
 }

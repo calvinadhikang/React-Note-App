@@ -1,15 +1,15 @@
 import React from "react";
 import Nav from "./components/Nav";
-import Form from "./components/Form";
-import Content from "./components/Content";
-import { getInitialData } from "./utils/data";
+import { Route, Routes } from "react-router-dom";
+import { HomePage } from "./pages/HomePage";
+import AddPage from "./pages/AddPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 export class App extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             key: '',
-            data: getInitialData()
         }
 
         this.addNote = this.addNote.bind(this);   
@@ -66,11 +66,15 @@ export class App extends React.Component {
     render(){
         return(
             <>
-                <Nav>
-                    <input type="text" className="search" placeholder="Search" value={this.state.key} onChange={(e) => this.titleSearch(e)}/>
-                </Nav>
+                <Nav></Nav>
+
+                <Routes>
+                    <Route path="/" element={<HomePage/>} /> 
+                    <Route path="/add" element={<AddPage/>} /> 
+                    <Route path="/*" element={<NotFoundPage/>}/>
+                </Routes>
                 
-                <h2 id="AddNotes">Add Notes</h2>
+                {/* <h2 id="AddNotes">Add Notes</h2>
                 <div className="center-flex">
                     <Form addNote={this.addNote}/>
                 </div>
@@ -80,7 +84,7 @@ export class App extends React.Component {
                 <Content 
                 data={this.state.data.filter(item => item.archived == true && item.title.toLowerCase().includes(this.state.key.toLowerCase()))}
                 onDelete={this.deleteNote} toggleArchive={this.toggleArchive}>Archived Notes</Content>
-                <br></br>
+                <br></br> */}
             </>
         );
     }

@@ -1,4 +1,5 @@
 import React from "react";
+import { addData } from "../utils/data";
 
 export default class Form extends React.Component {
     constructor(props){
@@ -39,7 +40,7 @@ export default class Form extends React.Component {
                     <span className="word-counter">{this.state.title.length}/50</span>
                     <label>Description</label>
                     <textarea onChange={(e) => this.descChange(e)} value={this.state.desc}></textarea>
-                    <button type="button" onClick={() => this.props.addNote(this.state.title, this.state.desc)}>Add !</button>
+                    <button type="button" onClick={() => addData(this.state.title, this.state.desc)}>Add !</button>
                 </div>
             </>
         );
