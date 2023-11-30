@@ -69,5 +69,21 @@ const getData = (archived = false) => {
     return data.filter(item => item.archived == archived);
 }
 
-export { getData, showFormattedDate, addData };
+const getById = (id) => {
+    const idx = data.findIndex(item => item.id == id);
+    return data[idx];
+}
+
+const toggleArchive = (id) => {
+    const idx = data.findIndex(item => item.id == id);
+    data[idx].archived = !data[idx].archived
+    console.log(data)
+}
+
+const deleteData = (id) => {
+    const idx = data.findIndex(item => item.id == id);
+    data.splice(idx, 1)
+}
+
+export { getData, showFormattedDate, addData, getById, toggleArchive, deleteData };
   

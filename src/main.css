@@ -163,6 +163,13 @@ nav > h1 {
     margin-bottom: 10px;
 }
 
+.btn {
+    padding: 20px;
+    border: 0px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
 .btn-archive {
     background-color: rgb(244, 244, 99);
 }

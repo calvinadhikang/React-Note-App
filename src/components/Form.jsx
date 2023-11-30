@@ -9,7 +9,7 @@ export default class Form extends React.Component {
             desc: "",
             errTitle: "",
             errDesc: ""
-        }
+        };
 
         this.titleChange = this.titleChange.bind(this);
         this.descChange = this.descChange.bind(this);
