@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export default function ListNotes({data, children}){
     return(
-        <div className="content">
+        <>
             <h2>{children}</h2>
             <br></br>
             <div className="between-flex">
@@ -12,7 +12,7 @@ export default function ListNotes({data, children}){
                 return <NotesItem key={item.id} data={item}></NotesItem>
             }) : 'No Notes here..' }
             </div>
-        </div>
+        </>
     )
 } 
 

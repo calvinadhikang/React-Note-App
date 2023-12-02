@@ -28,7 +28,7 @@ class DetailPage extends React.Component {
 
     render(){
         return(
-            <div className="content">
+            <>
                 <br />
                 <h1>{this.state.title}</h1>
                 <p><i>{this.state.archived && "Archived"}</i></p>
@@ -42,7 +42,7 @@ class DetailPage extends React.Component {
                     >{ this.state.archived ? 'Un-Archive' : 'Archive' }</button>
                     <button onClick={this.handleDelete} className="btn btn-delete"><Link to="/">Delete</Link></button>
                 </div>
-            </div>
+            </>
         )
     }
 }
