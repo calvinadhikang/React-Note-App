@@ -7,6 +7,8 @@ export default function AuthLayout(){
                 <center>
                     <h1>React Note App</h1>
                 </center>
+                <br/>
+                <br/>
                 <Outlet/>
             </div>
         </div>

@@ -17,6 +17,7 @@ export default function RegisterPage(){
         const response = await register({name, email, password});
         setLoading(false);
         if (response.error == false) {
+            alert("Register Berhasil !");
             navigate('/');
         }
     }

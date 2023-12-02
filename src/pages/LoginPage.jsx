@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { login } from "../utils/network";
 import useInput from "../utils/useInput";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage(){
+    const navigate = useNavigate();
     const [email, setEmail] = useInput("");
     const [password, setPassword] = useInput("");
     const [loading, setLoading] = useState(false);
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -14,7 +15,11 @@ export default function LoginPage(){
         
         const response = await login({email, password});
         setLoading(false);
-        const token = response.data.accessToken;
+        if (response.error == false) {
+            alert(`Selamat Datang, ${email}`);
+            const token = response.data.accessToken;
+            navigate('/app');
+        }
     }
 
     return(
