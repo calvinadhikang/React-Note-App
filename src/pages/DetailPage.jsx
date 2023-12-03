@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import React, { useEffect, useState } from "react";
-import { archiveNote, deleteNote, getNote, unarchiveNote } from "../utils/network";
+import { archiveNote, deleteNote, getNote, getUserLogged, unarchiveNote } from "../utils/network";
 import { showFormattedDate } from "../utils/data";
 import { useNavigate } from "react-router-dom";
 
@@ -12,8 +12,20 @@ function DetailPage () {
 
     useEffect(() => {
         const fetchData = async(id) => {
-            const note = await getNote(id);
-            setData(note.data);
+            try {
+                const user = await getUserLogged();
+                const note = await getNote(id);
+    
+                if (user.data.id !== note.data.owner) {
+                    alert("Access Denied !");
+                    navigate("/");
+                    return;
+                }
+    
+                setData(note.data);
+            } catch (error) {
+                console.log(error);
+            }
         }
 
         if (id) {

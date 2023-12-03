@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ListNotes from "../components/ListNotes";
 import { useSearchParams } from "react-router-dom";
-import { getActiveNotes, getArchivedNotes } from "../utils/network";
+import { getAccessToken, getActiveNotes, getArchivedNotes } from "../utils/network";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage () {
+    const navigate = useNavigate();
+
     const [activeNotes, setActiveNotes] = useState(null);
     const [archivedNotes, setArchivedNotes] = useState(null);
 
@@ -12,11 +15,22 @@ export default function HomePage () {
 
     useEffect(() => {
         const fetchData = async () => {
-            const activeNotes = await getActiveNotes();
-            const archivedNotes = await getArchivedNotes();
-
-            setActiveNotes(activeNotes.data);
-            setArchivedNotes(archivedNotes.data);
+            const token = getAccessToken();
+            if (!token) {
+                alert("Silahkan login terlebih dahulu");
+                navigate("/");
+                return;
+            }
+            
+            try {
+                const activeNotes = await getActiveNotes();
+                const archivedNotes = await getArchivedNotes();
+    
+                setActiveNotes(activeNotes.data);
+                setArchivedNotes(archivedNotes.data);
+            } catch (error) {
+                console.log(error);
+            }
         }
 
         fetchData();        

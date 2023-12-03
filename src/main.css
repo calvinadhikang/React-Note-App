@@ -49,6 +49,7 @@ nav {
 .nav-space {
     flex-basis: 30%;
     justify-content: end;
+    align-items: center;
     display: flex;
     gap: 10px;
 }
@@ -213,4 +214,17 @@ nav > h1 {
     padding: 5px;
     border: 1px solid ;
     width: 100%;
+}
+.link-logout {
+    color: red;
+    border: 1px solid red;
+    border-radius: 5px;
+    background-color: transparent;
+    font-size: medium;
+    font-weight: bold;
+    padding: 5px;
+}
+.link-logout:hover {
+    color: white;
+    background-color: red;
 }
