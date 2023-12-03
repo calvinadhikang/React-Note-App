@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { login } from "../utils/network";
+import React, { useContext, useState } from "react";
+import { login, putAccessToken } from "../utils/network";
 import useInput from "../utils/useInput";
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +18,7 @@ export default function LoginPage(){
         if (response.error == false) {
             alert(`Selamat Datang, ${email}`);
             const token = response.data.accessToken;
+            putAccessToken(token);
             navigate('/app');
         }
     }

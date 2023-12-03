@@ -1,48 +1,40 @@
-import React from "react";
-import { addData } from "../utils/data";
+import React, { useState } from "react";
+import { addNote } from "../utils/network";
+import useInput from "../utils/useInput";
+import { useNavigate } from "react-router-dom";
 
-export default class Form extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            title: "",
-            desc: "",
-            errTitle: "",
-            errDesc: ""
-        };
+export default function Form () {
+    const navigate = useNavigate();
+    const [title, setTitle] = useState("");
+    const [body, setBody] = useInput("");
 
-        this.titleChange = this.titleChange.bind(this);
-        this.descChange = this.descChange.bind(this);
-    }
-
-    titleChange = (e) => {
-        const value = e.target.value;
-        if (value.length <= 50) {
-            this.setState({
-                title: value 
-            });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        const response = await addNote({title, body});
+        if (response.error == false) {
+            alert("Berhasil menambah notes !");
+            navigate("/app");
         }
     }
-    
-    descChange = (e) => {
+
+    const titleChange = (e) => {
         const value = e.target.value;
-        this.setState({
-            desc: value 
-        });
+        if (value.length <= 50) {
+            setTitle(value);
+        }
     }
 
-    render(){
-        return(
-            <>
-                <div className="add-form">
-                    <label>Title</label>
-                    <input type="text" value={this.state.title} onChange={(e) => this.titleChange(e)}></input>
-                    <span className="word-counter">{this.state.title.length}/50</span>
-                    <label>Description</label>
-                    <textarea onChange={(e) => this.descChange(e)} value={this.state.desc}></textarea>
-                    <button type="button" onClick={() => addData(this.state.title, this.state.desc)}>Add !</button>
-                </div>
-            </>
-        );
-    }
+    return(
+        <>
+            <form className="add-form" onSubmit={handleSubmit}>
+                <label>Title</label>
+                <input type="text" value={title} onChange={titleChange}></input>
+                <span className="word-counter">{title.length}/50</span>
+                <label>Description</label>
+                <textarea value={body} onChange={setBody}></textarea>
+                <button>Add !</button>
+            </form>
+        </>
+    );
 }

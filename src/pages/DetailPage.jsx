@@ -1,54 +1,67 @@
-import { useParams, Link } from "react-router-dom"
-import PropTypes from 'prop-types';
-import { deleteData, getById, showFormattedDate, toggleArchive } from "../utils/data";
-import React from "react";
+import { useParams } from "react-router-dom"
+import React, { useEffect, useState } from "react";
+import { archiveNote, deleteNote, getNote, unarchiveNote } from "../utils/network";
+import { showFormattedDate } from "../utils/data";
+import { useNavigate } from "react-router-dom";
 
-function DetailPageWrapper(){
-    const {id} = useParams();
-    return <DetailPage id={parseInt(id)} />
-}
+function DetailPage () {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [data, setData] = useState(null);
+    const [fetching, setFetching] = useState(false);
 
-class DetailPage extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = getById(props.id);
+    useEffect(() => {
+        const fetchData = async(id) => {
+            const note = await getNote(id);
+            setData(note.data);
+        }
 
-        this.handleArchive = this.handleArchive.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
+        if (id) {
+            fetchData(id);
+        }
+    },[id, fetching])
+
+    const handleToggleArchive = async() => {
+        if (data.archived) {
+            await unarchiveNote(id);
+        } else {
+            await archiveNote(id);
+        }
+
+        setFetching(!fetching);
     }
 
-    handleArchive = () => {
-        toggleArchive(this.state.id);
-        this.setState(getById(this.state.id));
+    const handleDelete = async() => {
+        const result = await deleteNote(id);
+        if (result.error == false) {
+            alert("Berhasil delete Note");
+            navigate("/app");
+        }
     }
 
-    handleDelete = () => {
-        deleteData(this.state.id);
-    }
-
-    render(){
-        return(
+    return(
+        <>
+            { data == null ? 
+            "Loading data..."
+            :
             <>
                 <br />
-                <h1>{this.state.title}</h1>
-                <p><i>{this.state.archived && "Archived"}</i></p>
-                <p className="notes-body">{showFormattedDate(this.state.createdAt)}</p>
-                <p>{this.state.body}</p>
+                <h1>{data.title}</h1>
+                <p><i>{data.archived && "Archived"}</i></p>
+                <p className="notes-body">{showFormattedDate(data.createdAt)}</p>
+                <p>{data.body}</p>
                 <br />
                 <div style={{ display: "flex", gap: 10 }}>
                     <button 
-                        onClick={this.handleArchive}
-                        className={`btn ${this.state.archived ? 'btn-unarchive' : 'btn-archive'}`}    
-                    >{ this.state.archived ? 'Un-Archive' : 'Archive' }</button>
-                    <button onClick={this.handleDelete} className="btn btn-delete"><Link to="/">Delete</Link></button>
+                        onClick={handleToggleArchive}
+                        className={`btn ${data.archived ? 'btn-unarchive' : 'btn-archive'}`}    
+                    >{ data.archived ? 'Un-Archive' : 'Archive' }</button>
+                    <button onClick={handleDelete} className="btn btn-delete">Delete</button>
                 </div>
             </>
-        )
-    }
+            }
+        </>
+    )
 }
 
-DetailPage.propTypes = {
-    id: PropTypes.number.isRequired
-}
-
-export default DetailPageWrapper
+export default DetailPage;
