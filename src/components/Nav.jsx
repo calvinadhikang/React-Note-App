@@ -9,7 +9,7 @@ function Nav() {
     const { theme, changeTheme } = useTheme();
     
     const handleLogout = () => {
-        putAccessToken(null);
+        localStorage.removeItem("accessToken");
         navigate("/");
     }
 

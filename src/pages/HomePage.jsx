@@ -17,7 +17,6 @@ export default function HomePage () {
         const fetchData = async () => {
             const token = getAccessToken();
             if (!token) {
-                alert("Silahkan login terlebih dahulu");
                 navigate("/");
                 return;
             }
