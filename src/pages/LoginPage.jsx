@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { login, putAccessToken } from "../utils/network";
 import useInput from "../utils/useInput";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function LoginPage(){
     const navigate = useNavigate();
@@ -39,10 +39,12 @@ export default function LoginPage(){
                     <br/>
                     <div>
                         <p>Password</p>
-                        <input type="text" className="input" value={password} onChange={setPassword} />
+                        <input type="password" className="input" value={password} onChange={setPassword} />
                     </div>
                     <br/>
                     <button className="btn" style={{ backgroundColor: "#01e1ff" }}>Login</button>
+                    <br />
+                    <p>Don't have an account ? <Link to="/register"><u><b>Sign Up</b></u></Link></p>
                 </>
                 }
             </form>

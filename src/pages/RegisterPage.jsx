@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { register } from "../utils/network";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import useInput from "../utils/useInput";
 
 export default function RegisterPage(){
@@ -47,6 +47,8 @@ export default function RegisterPage(){
                     </div>
                     <br/>
                     <button className="btn" style={{ backgroundColor: "#01e1ff" }}>Register</button>
+                    <br />
+                    <p>Already have an account ? <Link to="/"><u><b>Sign In</b></u></Link></p>
                 </>
                 }
             </form>
