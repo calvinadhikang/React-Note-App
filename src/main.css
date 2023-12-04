@@ -228,3 +228,13 @@ nav > h1 {
     color: white;
     background-color: red;
 }
+.light {
+    background-color: aquamarine;
+}
+.dark {
+    background-color: darkslategray;
+    color: salmon;
+}
+.btn-theme {
+    padding: 4px;
+}

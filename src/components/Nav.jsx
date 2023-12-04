@@ -2,13 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { putAccessToken } from "../utils/network";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../contexts/ThemeContext";
 
 function Nav() {
     const navigate = useNavigate();
+    const { theme, changeTheme } = useTheme();
     
     const handleLogout = () => {
         putAccessToken(null);
         navigate("/");
+    }
+
+    const toggleTheme = () => {
+        changeTheme(theme === "light" ? "dark" : "light");
     }
 
     return(
@@ -18,6 +24,7 @@ function Nav() {
                 <Link className="link-hover" to="/app">Home</Link>
                 <Link className="link-hover" to="/app/add">Add Notes</Link>
                 <button className="link-logout" onClick={handleLogout}>Logout</button>
+                <button className="btn-theme" onClick={toggleTheme}>Toggle Theme</button>
             </div>
         </nav>
     );
